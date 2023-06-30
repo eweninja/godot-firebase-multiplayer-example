@@ -21,7 +21,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="MainMenu" type="MarginContainer" parent="CanvasLayer/UI"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,24 +33,24 @@ theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/MainMenu"]
+[node name="Login" type="VBoxContainer" parent="CanvasLayer/UI/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="Title" type="Label" parent="CanvasLayer/UI/MainMenu/VBoxContainer"]
+[node name="Title" type="Label" parent="CanvasLayer/UI/MarginContainer/Login"]
 layout_mode = 2
 theme = ExtResource("3_ci23k")
 text = "Firebase Multiplayer Test"
 horizontal_alignment = 1
 
-[node name="Login" type="Button" parent="CanvasLayer/UI/MainMenu/VBoxContainer"]
+[node name="Login" type="Button" parent="CanvasLayer/UI/MarginContainer/Login"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("3_ci23k")
 text = "Login (anonymous)"
 
-[node name="Info" type="Label" parent="CanvasLayer/UI/MainMenu/VBoxContainer"]
+[node name="Info" type="Label" parent="CanvasLayer/UI/MarginContainer/Login"]
 layout_mode = 2
 theme = ExtResource("3_ci23k")
 theme_override_font_sizes/font_size = 22
@@ -58,3 +58,7 @@ text = "Cleal \"Login\" to start."
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Gameplay" type="Node2D" parent="."]
