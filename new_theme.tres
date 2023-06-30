@@ -1,0 +1,17 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://ylgo7o4n4kj4"]
+
+[ext_resource type="FontFile" uid="uid://bw2rs5m2fa0jl" path="res://fonts/Poppins-Medium.ttf" id="1_ql8wp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u15l4"]
+content_margin_left = 25.0
+content_margin_top = 25.0
+content_margin_right = 25.0
+content_margin_bottom = 25.0
+bg_color = Color(0.184314, 0.184314, 0.184314, 1)
+
+[resource]
+Button/font_sizes/font_size = 30
+Button/fonts/font = ExtResource("1_ql8wp")
+Button/styles/normal = SubResource("StyleBoxFlat_u15l4")
+Label/font_sizes/font_size = 30
+Label/fonts/font = ExtResource("1_ql8wp")

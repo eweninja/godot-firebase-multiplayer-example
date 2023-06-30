@@ -1,0 +1,60 @@
+[gd_scene load_steps=4 format=3 uid="uid://bawrp4gm813ht"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_rqo7u"]
+[ext_resource type="Script" path="res://scripts/firebase_manager.gd" id="1_vv4rk"]
+[ext_resource type="Theme" uid="uid://ylgo7o4n4kj4" path="res://new_theme.tres" id="3_ci23k"]
+
+[node name="MainScene" type="Node2D"]
+script = ExtResource("1_rqo7u")
+
+[node name="FirebaseManager" type="Node2D" parent="."]
+script = ExtResource("1_vv4rk")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="MainMenu" type="MarginContainer" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/MainMenu"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Title" type="Label" parent="CanvasLayer/UI/MainMenu/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_ci23k")
+text = "Firebase Multiplayer Test"
+horizontal_alignment = 1
+
+[node name="Login" type="Button" parent="CanvasLayer/UI/MainMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_ci23k")
+text = "Login (anonymous)"
+
+[node name="Info" type="Label" parent="CanvasLayer/UI/MainMenu/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_ci23k")
+theme_override_font_sizes/font_size = 22
+text = "Cleal \"Login\" to start."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
