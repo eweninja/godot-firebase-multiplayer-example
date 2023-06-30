@@ -1,9 +1,9 @@
 # godot-firebase-multiplayer-example
 
+**Work in progress**.
 
 Example project in Godot 4.1 using [GodotFirebase](https://github.com/GodotNuts/GodotFirebase).
-
-**Work in progress**.
+Shared multiplayer with authority for own player.
 
 ## Reason
 
@@ -22,3 +22,18 @@ Example project in Godot 4.1 using [GodotFirebase](https://github.com/GodotNuts/
     - Search for open rooms:
         - If open room exists, join it.
         - Else create new open room and wait for other players.
+- In lobby room:
+    - Starting game.
+    - Leaving room.
+    - Text chat (optionally).
+- Gameplay:
+    - Spawning players:
+        - Self.
+        - Remote.
+    - Sending player position.
+    - Receiving remote players position.
+    - Broadcasting player actions.
+    - Host migration.
+- Game end:
+    - Showing results.
+    - Going back to lobby.
