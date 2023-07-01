@@ -22,7 +22,8 @@ func login_anonymously():
 func _logged_in_successfully(auth_info : Dictionary):
 	_is_logged_in = true
 	Game.emit_signal("login_successed")
-	print(auth_info)
+	for info in auth_info:
+		print(info)
 
 func _login_failed(code, message):
 	_is_logged_in = false

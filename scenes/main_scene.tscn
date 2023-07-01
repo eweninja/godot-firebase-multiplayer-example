@@ -34,6 +34,7 @@ theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
 [node name="Login" type="VBoxContainer" parent="CanvasLayer/UI/MarginContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
@@ -65,6 +66,50 @@ text = "Cleal \"Login\" to start."
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+
+[node name="LobbyAndPlayersList" type="HBoxContainer" parent="CanvasLayer/UI/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Actions" type="VBoxContainer" parent="CanvasLayer/UI/MarginContainer/LobbyAndPlayersList"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Actions" type="Label" parent="CanvasLayer/UI/MarginContainer/LobbyAndPlayersList/Actions"]
+layout_mode = 2
+theme = ExtResource("3_ci23k")
+text = "Actions:"
+horizontal_alignment = 1
+
+[node name="FindGame" type="Button" parent="CanvasLayer/UI/MarginContainer/LobbyAndPlayersList/Actions"]
+layout_mode = 2
+theme = ExtResource("3_ci23k")
+text = "Find Game"
+
+[node name="CreateRoom" type="Button" parent="CanvasLayer/UI/MarginContainer/LobbyAndPlayersList/Actions"]
+layout_mode = 2
+theme = ExtResource("3_ci23k")
+text = "Create Room"
+
+[node name="Lobbies" type="VBoxContainer" parent="CanvasLayer/UI/MarginContainer/LobbyAndPlayersList"]
+layout_mode = 2
+
+[node name="Lobbies" type="Label" parent="CanvasLayer/UI/MarginContainer/LobbyAndPlayersList/Lobbies"]
+layout_mode = 2
+theme = ExtResource("3_ci23k")
+text = "Lobbies:"
+horizontal_alignment = 1
+
+[node name="Players" type="VBoxContainer" parent="CanvasLayer/UI/MarginContainer/LobbyAndPlayersList"]
+layout_mode = 2
+
+[node name="Players" type="Label" parent="CanvasLayer/UI/MarginContainer/LobbyAndPlayersList/Players"]
+layout_mode = 2
+theme = ExtResource("3_ci23k")
+text = "Players:"
+horizontal_alignment = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

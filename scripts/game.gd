@@ -11,11 +11,16 @@ var _nickname = ""
 @onready var login_button : Button = $CanvasLayer/UI/MarginContainer/Login/Login
 @onready var info_label = $CanvasLayer/UI/MarginContainer/Login/Info
 
+@onready var lobby_and_players_node := $CanvasLayer/UI/MarginContainer/LobbyAndPlayersList
+
 signal login_failed(code, message)
 signal login_successed
 
 func _ready() -> void:
 	nickname_textedit.text = generate_random_nick()
+	
+	login_node.show()
+	lobby_and_players_node.hide()
 	
 	# Game signals
 	self.connect("login_failed", _on_login_failed)
@@ -47,6 +52,7 @@ func _on_login_failed(code, message):
 	
 func _on_login_successed():
 	login_node.hide()
+	lobby_and_players_node.show()
 	_spawn_player(true, _nickname)
 	
 	
