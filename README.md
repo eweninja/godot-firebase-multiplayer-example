@@ -48,3 +48,69 @@ Shared multiplayer with authority for own player.
 - [ ] Matchmaking.
 - [ ] Simple "gameplay".
 - [ ] Game end.
+
+
+## Database structure
+
+```json
+{
+    "rules": {
+        "players": {
+            "$playerId": {
+                ".read": "auth.uid === $playerId",
+                ".write": "auth.uid === $playerId"
+            }
+        },
+        "rooms": {
+            "$roomId": {
+                ".read": "data.child('players').child($playerId).exists() && auth.uid === $playerId",
+                ".write": "(!data.exists() && auth.uid === $playerId) || (data.child('players').child($playerId).exists() && auth.uid === $playerId)"
+            }
+        },
+        "sessions": {
+            "$sessionId": {
+                ".read": "data.child('roomId').exists() && root.child('rooms').child(data.child('roomId').val()).child('players').child($playerId).exists() && auth.uid === $playerId",
+                ".write": "data.child('roomId').exists() && root.child('rooms').child(data.child('roomId').val()).child('players').child($playerId).exists() && auth.uid === $playerId",
+                "points": {
+                    "$playerId": {
+                        ".read": "auth.uid === $playerId",
+                        ".write": "auth.uid === $playerId"
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+- Players | Keeps track of online players.
+- Rooms | Keeps track of lobby rooms.
+- Sessions | Keeps track of ongoing games.
+
+
+## Rules
+
+```json
+{
+    "rules": {
+        "players": {
+            "$playerId": {
+                ".read": "auth.uid === $playerId",
+                ".write": "!data.exists() && auth.uid === $playerId"
+            }
+        },
+        "rooms": {
+            "$roomId": {
+                ".read": "auth !== null",
+                ".write": "auth !== null"
+            }
+        },
+        "sessions": {
+            "$sessionId": {
+                ".read": "auth !== null",
+                ".write": "auth !== null"
+            }
+        }
+    }
+}
+```
