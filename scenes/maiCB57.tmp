@@ -114,6 +114,3 @@ horizontal_alignment = 1
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Gameplay" type="Node2D" parent="."]
-
-[node name="RefreshPlayer" type="Timer" parent="."]
-wait_time = 120.0

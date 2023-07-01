@@ -19,9 +19,21 @@ var player_auth_info
 
 @onready var lobby_and_players_node := $CanvasLayer/UI/MarginContainer/LobbyAndPlayersList
 
+@onready var players_list_node = $CanvasLayer/UI/MarginContainer/LobbyAndPlayersList/PlayersList
+@onready var player_item_scene = preload("res://scenes/player_item.tscn")
+
+@onready var refresh_player_timer : Timer = $RefreshPlayer
+
+
+
+
 signal login_failed(code, message)
 signal login_successed(auth_info)
 signal player_added_to_list(player_id)
+signal players_online_changed(data)
+signal player_online_removed(data)
+
+var online_players = {}
 
 func _ready() -> void:
 	nickname_textedit.text = generate_random_nick()
@@ -33,6 +45,10 @@ func _ready() -> void:
 	self.connect("login_failed", _on_login_failed)
 	self.connect("login_successed", _on_login_successed)
 	self.connect("player_added_to_list", _on_player_added_to_list)
+	self.players_online_changed.connect(_on_players_online_changed)
+	# self.player_online_removed.connect(_on_player_removed)
+	
+	refresh_player_timer.timeout.connect(_refresh_player_timeout)
 	
 	# Ui signals	
 	login_button.connect("pressed", _on_login_button_pressed)
@@ -85,3 +101,25 @@ func _spawn_player(p_info : Dictionary):
 	player.set_nickname(p_info.nickname)
 	player.set_id(p_info.id)
 
+func _on_players_online_changed(data):
+	
+	online_players[data.key] = data.data
+	
+	var user_exists = false
+	for child in players_list_node.get_children():
+		if "_player_id" in child:
+			if child._player_id == data.key:
+				user_exists = true
+				if data.data == null:
+					child.remove()
+				else:
+					child.set_nickname(data.data.nickname)
+				
+	if !user_exists:
+		var player_item = player_item_scene.instantiate()
+		players_list_node.add_child(player_item)
+		player_item.set_player_id(data.key)
+		player_item.set_nickname(data.data.nickname)
+
+func _refresh_player_timeout():
+	firebase_manager.update_player(player_info.id, {})

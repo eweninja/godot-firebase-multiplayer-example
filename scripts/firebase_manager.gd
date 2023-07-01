@@ -40,23 +40,41 @@ func add_new_player_to_list(player_info):
 	
 	players_ref.new_data_update.connect(_players_updated)
 	players_ref.patch_data_update.connect(_players_patch_updated)
+	players_ref.delete_data_update.connect(_player_removed)
 	players_ref.push_successful.connect(_players_push_successed)
 	players_ref.push_failed.connect(_players_push_failed)
 	
+	player_info.updated_time = Time.get_unix_time_from_system()
+	print("adding: ")
+	print(player_info)
 	players_ref.push(player_info)
 	
 func _players_updated(data):
+	Game.emit_signal("players_online_changed", data)
 	if local_player_id == "":
 		local_player_id = data.key
 		Game.emit_signal("player_added_to_list", local_player_id)
-	else:
-		return
+		
+	players_cleanup(data)
 	
 func _players_patch_updated(data):
-	print(data)	
+	Game.emit_signal("players_online_changed", data)
+	players_cleanup(data)
 	
-func _players_push_successed():
-	print("push successed")
-	
-func _players_push_failed():
-	print("push failed")
+func _players_push_successed(): print("push successed")
+func _players_push_failed(): print("push failed")
+
+func _player_removed(data):
+	Game.emit_signal("player_online_removed", data)
+
+func update_player(id, data = {}):
+	data.updated_time = Time.get_unix_time_from_system()
+	players_ref.update(id, data)
+
+func players_cleanup(data):
+	if !"updated_time" in data.data:
+		print("usuwanie przez brak")
+		players_ref.delete(str(data.key))
+	else:
+		if Time.get_unix_time_from_system() - data.data.updated_time > 120:
+			players_ref.delete(str(data.key))
