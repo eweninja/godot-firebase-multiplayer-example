@@ -1,7 +1,12 @@
 extends Node2D
 
 var player_scene = preload("res://scenes/player.tscn")
-var _nickname = ""
+var player_info = {
+	"is_me": false,
+	"nickname": "",
+	"id": ""
+}
+var player_auth_info = {}
 
 @onready var firebase_manager = $FirebaseManager
 @onready var gameplay_node = $Gameplay
@@ -14,7 +19,8 @@ var _nickname = ""
 @onready var lobby_and_players_node := $CanvasLayer/UI/MarginContainer/LobbyAndPlayersList
 
 signal login_failed(code, message)
-signal login_successed
+signal login_successed(auth_info)
+signal player_added_to_list(player_id)
 
 func _ready() -> void:
 	nickname_textedit.text = generate_random_nick()
@@ -25,6 +31,7 @@ func _ready() -> void:
 	# Game signals
 	self.connect("login_failed", _on_login_failed)
 	self.connect("login_successed", _on_login_successed)
+	self.connect("player_added_to_list", _on_player_added_to_list)
 	
 	# Ui signals	
 	login_button.connect("pressed", _on_login_button_pressed)
@@ -39,8 +46,9 @@ func _on_login_button_pressed():
 	if !firebase_manager.is_logged_in():
 		info_label.text = "Loggining in..."
 		login_button.disabled = true
+		player_info.is_me = true
+		player_info.nickname = nickname
 		firebase_manager.login_anonymously()
-		_nickname = nickname
 	else:
 		pass
 		
@@ -50,10 +58,16 @@ func _on_login_failed(code, message):
 	info_label.text = "Error: "+str(code)+" ("+str(message)+")"
 	login_button.disabled = false
 	
-func _on_login_successed():
+func _on_login_successed(auth_info):
+	player_auth_info = auth_info
+	firebase_manager.add_new_player_to_list(player_info)
+	info_label.text = "Adding "+str(player_info.nickname)+" to database..."
+
+func _on_player_added_to_list(player_id):
+	player_info.id = player_id
 	login_node.hide()
 	lobby_and_players_node.show()
-	_spawn_player(true, _nickname)
+	# _spawn_player(player_info)
 	
 	
 func generate_random_nick() -> String:
@@ -64,12 +78,13 @@ func generate_random_nick() -> String:
 	
 	
 	
-func _spawn_player(is_self = true, nickname = "placeholder"):
+func _spawn_player(p_info : Dictionary):
 	var x = randf_range(-400, 400)
 	var y = randf_range(-100, 100)
 	var player = player_scene.instantiate()
 	gameplay_node.add_child(player)
 	player.position = Vector2(x, y)
-	player.set_is_self(is_self)
-	player.set_nickname(nickname)
+	player.set_is_me(p_info.is_me)
+	player.set_nickname(p_info.nickname)
+	player.set_id(p_info.id)
 

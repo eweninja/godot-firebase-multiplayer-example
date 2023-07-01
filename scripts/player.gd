@@ -1,13 +1,16 @@
 extends CharacterBody2D
 
-var _is_self = false
-var _nickname = ""
+var player_info = {
+	"is_me": false,
+	"nickname": "",
+	"id": ""
+}
 const SPEED = 300.0
 
 @onready var nickname_label : Label = $Nickname
 
 func _physics_process(delta):
-	if !is_self(): return
+	if !is_me(): return
 	
 	var direction = Vector2.ZERO
 	if Input.is_action_pressed("left"):
@@ -22,12 +25,15 @@ func _physics_process(delta):
 	velocity = direction.normalized() * SPEED
 	move_and_slide()
 
-func is_self() -> bool:
-	return _is_self
+func is_me() -> bool:
+	return player_info.is_me
 
-func set_is_self(is_self_player):
-	_is_self = is_self_player
+func set_is_me(is_me : bool):
+	player_info.is_me = is_me
 
 func set_nickname(nick):
-	_nickname = nick
-	nickname_label.text = _nickname
+	player_info.nickname = nick
+	nickname_label.text = nick
+
+func set_id(id):
+	player_info.id = id
