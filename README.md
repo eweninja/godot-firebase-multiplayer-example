@@ -37,3 +37,14 @@ Shared multiplayer with authority for own player.
 - Game end:
     - Showing results.
     - Going back to lobby.
+
+
+## Todo
+
+- [x] Add login (anonymous).
+- [x] Add simple player scene.
+- [x] Add player nicknames.
+- [ ] Lobby rooms.
+- [ ] Matchmaking.
+- [ ] Simple "gameplay".
+- [ ] Game end.
