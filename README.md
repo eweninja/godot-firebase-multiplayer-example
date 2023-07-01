@@ -19,24 +19,24 @@ Shared multiplayer with authority for own player.
 - Creating lobby room.
 - Joining lobby room.
 - Matchmaking:
-    - Search for open rooms:
-        - If open room exists, join it.
-        - Else create new open room and wait for other players.
+	- Search for open rooms:
+		- If open room exists, join it.
+		- Else create new open room and wait for other players.
 - In lobby room:
-    - Starting game.
-    - Leaving room.
-    - Text chat (optionally).
+	- Starting game.
+	- Leaving room.
+	- Text chat (optionally).
 - Gameplay:
-    - Spawning players:
-        - Self.
-        - Remote.
-    - Sending player position.
-    - Receiving remote players position.
-    - Broadcasting player actions.
-    - Host migration.
+	- Spawning players:
+		- Self.
+		- Remote.
+	- Sending player position.
+	- Receiving remote players position.
+	- Broadcasting player actions.
+	- Host migration.
 - Game end:
-    - Showing results.
-    - Going back to lobby.
+	- Showing results.
+	- Going back to lobby.
 
 
 ## Todo
@@ -54,31 +54,31 @@ Shared multiplayer with authority for own player.
 
 ```json
 {
-    "players": {
-        "$playerId": {
-            "nickname": "Player#1000"
-        }
-    },
-    "rooms": {
-        "$roomId": {
-            "name": "Room 1",
-            "players": {
-                "$playerId": {
-                    "isHost": true
-                }
-            }
-        }
-    },
-    "sessions": {
-        "$sessionId": {
-            "roomId": "abc123",
-            "status": "active",
-            "startTime": 1656789123456,
-            "points": {
-                "$playerId": 0
-            }
-        }
-    }
+	"players": {
+		"$playerId": {
+			"nickname": "Player#1000"
+		}
+	},
+	"rooms": {
+		"$roomId": {
+			"name": "Room 1",
+			"players": {
+				"$playerId": {
+					"isHost": true
+				}
+			}
+		}
+	},
+	"sessions": {
+		"$sessionId": {
+			"roomId": "abc123",
+			"status": "active",
+			"startTime": 1656789123456,
+			"points": {
+				"$playerId": 0
+			}
+		}
+	}
 }
 ```
 
@@ -91,25 +91,25 @@ Shared multiplayer with authority for own player.
 
 ```json
 {
-    "rules": {
-        "players": {
-            "$playerId": {
-                ".read": "auth.uid === $playerId",
-                ".write": "!data.exists() && auth.uid === $playerId"
-            }
-        },
-        "rooms": {
-            "$roomId": {
-                ".read": "auth !== null",
-                ".write": "auth !== null"
-            }
-        },
-        "sessions": {
-            "$sessionId": {
-                ".read": "auth !== null",
-                ".write": "auth !== null"
-            }
-        }
-    }
+	"rules": {
+		"players": {
+			"$playerId": {
+				".read": "auth.uid === $playerId",
+				".write": "!data.exists() && auth.uid === $playerId"
+			}
+		},
+		"rooms": {
+			"$roomId": {
+				".read": "auth !== null",
+				".write": "auth !== null"
+			}
+		},
+		"sessions": {
+			"$sessionId": {
+				".read": "auth !== null",
+				".write": "auth !== null"
+			}
+		}
+	}
 }
 ```

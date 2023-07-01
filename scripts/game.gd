@@ -6,7 +6,8 @@ var player_info = {
 	"nickname": "",
 	"id": ""
 }
-var player_auth_info = {}
+var is_logged_in = false
+var player_auth_info
 
 @onready var firebase_manager = $FirebaseManager
 @onready var gameplay_node = $Gameplay
@@ -73,11 +74,7 @@ func _on_player_added_to_list(player_id):
 func generate_random_nick() -> String:
 	var id = randi_range(1000, 9999)
 	return "Player#"+str(id)
-	
-	
-	
-	
-	
+
 func _spawn_player(p_info : Dictionary):
 	var x = randf_range(-400, 400)
 	var y = randf_range(-100, 100)

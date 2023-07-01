@@ -34,7 +34,6 @@ theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
 [node name="Login" type="VBoxContainer" parent="CanvasLayer/UI/MarginContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
@@ -62,12 +61,13 @@ text = "Login (anonymous)"
 layout_mode = 2
 theme = ExtResource("3_ci23k")
 theme_override_font_sizes/font_size = 22
-text = "Cleal \"Login\" to start."
+text = "Click \"Login\" to start."
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="LobbyAndPlayersList" type="HBoxContainer" parent="CanvasLayer/UI/MarginContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
