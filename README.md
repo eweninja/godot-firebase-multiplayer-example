@@ -54,31 +54,32 @@ Shared multiplayer with authority for own player.
 
 ```json
 {
-	"players": {
-		"$playerId": {
-			"nickname": "Player#1000"
-		}
-	},
-	"rooms": {
-		"$roomId": {
-			"name": "Room 1",
-			"players": {
-				"$playerId": {
-					"isHost": true
-				}
-			}
-		}
-	},
-	"sessions": {
-		"$sessionId": {
-			"roomId": "abc123",
-			"status": "active",
-			"startTime": 1656789123456,
-			"points": {
-				"$playerId": 0
-			}
-		}
+  "players": {
+	"$playerId": {
+	  "nickname": "Player#1000",
+	  "updated_time": 0
 	}
+  },
+  "rooms": {
+	"$roomId": {
+	  "name": "Room 1",
+	  "players": {
+		"$playerId": {
+		  "isHost": true
+		}
+	  }
+	}
+  },
+  "sessions": {
+	"$sessionId": {
+	  "roomId": "abc123",
+	  "status": "active",
+	  "startTime": 1656789123456,
+	  "stats": {
+		"$playerId": {}
+	   }
+	}
+  }
 }
 ```
 
@@ -86,30 +87,3 @@ Shared multiplayer with authority for own player.
 - Rooms | Keeps track of lobby rooms.
 - Sessions | Keeps track of ongoing games.
 
-
-## Rules
-
-```json
-{
-	"rules": {
-		"players": {
-			"$playerId": {
-				".read": "auth.uid === $playerId",
-				".write": "!data.exists() && auth.uid === $playerId"
-			}
-		},
-		"rooms": {
-			"$roomId": {
-				".read": "auth !== null",
-				".write": "auth !== null"
-			}
-		},
-		"sessions": {
-			"$sessionId": {
-				".read": "auth !== null",
-				".write": "auth !== null"
-			}
-		}
-	}
-}
-```

@@ -22,6 +22,10 @@ var player_auth_info
 @onready var players_list_node = $CanvasLayer/UI/MarginContainer/LobbyAndPlayersList/PlayersList
 @onready var player_item_scene = preload("res://scenes/player_item.tscn")
 
+@onready var find_game_button : Button = $CanvasLayer/UI/MarginContainer/LobbyAndPlayersList/Actions/FindGame
+@onready var create_room_button : Button = $CanvasLayer/UI/MarginContainer/LobbyAndPlayersList/Actions/CreateRoom
+
+
 @onready var refresh_player_timer : Timer = $RefreshPlayer
 
 
@@ -52,6 +56,9 @@ func _ready() -> void:
 	
 	# Ui signals	
 	login_button.connect("pressed", _on_login_button_pressed)
+	find_game_button.pressed.connect(_on_find_game_pressed)
+	create_room_button.pressed.connect(_on_create_room_pressed)
+	
 	
 	
 func _on_login_button_pressed():
@@ -123,3 +130,9 @@ func _on_players_online_changed(data):
 
 func _refresh_player_timeout():
 	firebase_manager.update_player(player_info.id, {})
+
+func _on_find_game_pressed():
+	pass
+
+func _on_create_room_pressed():
+	pass
