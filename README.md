@@ -54,29 +54,28 @@ Shared multiplayer with authority for own player.
 
 ```json
 {
-    "rules": {
-        "players": {
-            "$playerId": {
-                ".read": "auth.uid === $playerId",
-                ".write": "auth.uid === $playerId"
-            }
-        },
-        "rooms": {
-            "$roomId": {
-                ".read": "data.child('players').child($playerId).exists() && auth.uid === $playerId",
-                ".write": "(!data.exists() && auth.uid === $playerId) || (data.child('players').child($playerId).exists() && auth.uid === $playerId)"
-            }
-        },
-        "sessions": {
-            "$sessionId": {
-                ".read": "data.child('roomId').exists() && root.child('rooms').child(data.child('roomId').val()).child('players').child($playerId).exists() && auth.uid === $playerId",
-                ".write": "data.child('roomId').exists() && root.child('rooms').child(data.child('roomId').val()).child('players').child($playerId).exists() && auth.uid === $playerId",
-                "points": {
-                    "$playerId": {
-                        ".read": "auth.uid === $playerId",
-                        ".write": "auth.uid === $playerId"
-                    }
+    "players": {
+        "$playerId": {
+            "nickname": "Player#1000"
+        }
+    },
+    "rooms": {
+        "$roomId": {
+            "name": "Room 1",
+            "players": {
+                "$playerId": {
+                    "isHost": true
                 }
+            }
+        }
+    },
+    "sessions": {
+        "$sessionId": {
+            "roomId": "abc123",
+            "status": "active",
+            "startTime": 1656789123456,
+            "points": {
+                "$playerId": 0
             }
         }
     }
