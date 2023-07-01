@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cgnrneumdi85t"]
+[gd_scene load_steps=5 format=3 uid="uid://cgnrneumdi85t"]
 
 [ext_resource type="Texture2D" uid="uid://j3x0qvxsw1d0" path="res://icon.svg" id="1_634lb"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_bojji"]
+[ext_resource type="Theme" uid="uid://ylgo7o4n4kj4" path="res://new_theme.tres" id="3_rnf24"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ii5tp"]
 size = Vector2(40, 44)
@@ -15,3 +16,14 @@ texture = ExtResource("1_634lb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ii5tp")
+
+[node name="Nickname" type="Label" parent="."]
+offset_left = -50.0
+offset_top = -40.0
+offset_right = 150.0
+offset_bottom = -14.0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("3_rnf24")
+theme_override_font_sizes/font_size = 16
+text = "PLACEHOLDER"
+horizontal_alignment = 1

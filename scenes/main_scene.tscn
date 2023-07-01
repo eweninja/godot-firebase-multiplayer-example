@@ -44,6 +44,13 @@ theme = ExtResource("3_ci23k")
 text = "Firebase Multiplayer Test"
 horizontal_alignment = 1
 
+[node name="NicknameTextEdit" type="TextEdit" parent="CanvasLayer/UI/MarginContainer/Login"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_ci23k")
+placeholder_text = "Your nickname"
+
 [node name="Login" type="Button" parent="CanvasLayer/UI/MarginContainer/Login"]
 layout_mode = 2
 size_flags_horizontal = 4
