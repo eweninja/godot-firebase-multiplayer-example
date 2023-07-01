@@ -3,7 +3,7 @@
 **Work in progress**.
 
 Example project in Godot 4.1 using [GodotFirebase](https://github.com/GodotNuts/GodotFirebase).
-Shared multiplayer with authority for own player.
+Firebase Realtime Database shared multiplayer with authority for own player.
 
 ## Reason
 
