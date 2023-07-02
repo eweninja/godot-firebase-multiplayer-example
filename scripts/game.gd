@@ -19,11 +19,15 @@ var player_auth_info
 
 @onready var lobby_and_players_node := $CanvasLayer/UI/MarginContainer/LobbyAndPlayersList
 
+@onready var find_game_button : Button = $CanvasLayer/UI/MarginContainer/LobbyAndPlayersList/Actions/FindGame
+@onready var create_room_button : Button = $CanvasLayer/UI/MarginContainer/LobbyAndPlayersList/Actions/CreateRoom
+
 @onready var players_list_node = $CanvasLayer/UI/MarginContainer/LobbyAndPlayersList/PlayersList
 @onready var player_item_scene = preload("res://scenes/player_item.tscn")
 
-@onready var find_game_button : Button = $CanvasLayer/UI/MarginContainer/LobbyAndPlayersList/Actions/FindGame
-@onready var create_room_button : Button = $CanvasLayer/UI/MarginContainer/LobbyAndPlayersList/Actions/CreateRoom
+@onready var rooms_list_node = $CanvasLayer/UI/MarginContainer/LobbyAndPlayersList/Lobbies
+@onready var room_item_scene = preload("res://scenes/lobby_item.tscn")
+
 
 
 @onready var refresh_player_timer : Timer = $RefreshPlayer
@@ -36,6 +40,9 @@ signal login_successed(auth_info)
 signal player_added_to_list(player_id)
 signal players_online_changed(data)
 signal player_online_removed(data)
+signal rooms_changed(data)
+signal room_removed(data)
+signal room_joined(data)
 
 var online_players = {}
 
@@ -135,4 +142,4 @@ func _on_find_game_pressed():
 	pass
 
 func _on_create_room_pressed():
-	pass
+	firebase_manager.create_room({})

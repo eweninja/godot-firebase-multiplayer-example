@@ -4,11 +4,11 @@ var _is_logged_in : bool = false
 var Game
 var all_data_ref : FirebaseDatabaseReference = null
 var players_ref : FirebaseDatabaseReference = null
-var rooms_ref = null
+var rooms_ref : FirebaseDatabaseReference = null
 var sessions_ref = null
 
 var local_player_id = ""
-
+var local_player_room_id = ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,25 +28,29 @@ func login_anonymously():
 
 func _logged_in_successfully(auth_info : Dictionary):
 	_is_logged_in = true
-	Game.emit_signal("login_successed", auth_info)
 	
-
-func _login_failed(code, message):
-	_is_logged_in = false
-	Game.emit_signal("login_failed", code, message)
-
-func add_new_player_to_list(player_info):
 	players_ref = Firebase.Database.get_database_reference("players", {})
-	
 	players_ref.new_data_update.connect(_players_updated)
 	players_ref.patch_data_update.connect(_players_patch_updated)
 	players_ref.delete_data_update.connect(_player_removed)
 	players_ref.push_successful.connect(_players_push_successed)
 	players_ref.push_failed.connect(_players_push_failed)
 	
+	rooms_ref = Firebase.Database.get_database_reference("rooms", {})
+	rooms_ref.new_data_update.connect(_rooms_updated)
+	rooms_ref.patch_data_update.connect(_rooms_patch_updated)
+	rooms_ref.delete_data_update.connect(_room_removed)
+	rooms_ref.push_successful.connect(_rooms_push_successed)
+	rooms_ref.push_failed.connect(_rooms_push_failed)
+	
+	Game.emit_signal("login_successed", auth_info)
+
+func _login_failed(code, message):
+	_is_logged_in = false
+	Game.emit_signal("login_failed", code, message)
+
+func add_new_player_to_list(player_info):
 	player_info.updated_time = Time.get_unix_time_from_system()
-	print("adding: ")
-	print(player_info)
 	players_ref.push(player_info)
 	
 func _players_updated(data):
@@ -72,9 +76,48 @@ func update_player(id, data = {}):
 	players_ref.update(id, data)
 
 func players_cleanup(data):
+	if !data.data: return
 	if !"updated_time" in data.data:
 		print("usuwanie przez brak")
 		players_ref.delete(str(data.key))
 	else:
 		if Time.get_unix_time_from_system() - data.data.updated_time > 120:
 			players_ref.delete(str(data.key))
+
+func _rooms_updated(data):
+	print("room data changed")
+	print(data)
+	if local_player_room_id == "":
+		if local_player_id in data.data.players:
+			local_player_room_id = data.key
+			Game.emit_signal("room_joined", data)
+	
+	Game.emit_signal("rooms_changed", data)
+	rooms_cleanup(data)
+	
+func _rooms_patch_updated(data):
+	Game.emit_signal("rooms_changed", data)
+	rooms_cleanup(data)
+	
+func _rooms_push_successed(): print("push successed")
+func _rooms_push_failed(): print("push failed")
+
+func _room_removed(data):
+	pass # todo
+	
+func rooms_cleanup(data):
+	if data.data.players == {}:
+		print("room removed by cleanup "+str(data.key))
+		rooms_ref.delete(str(data.key))
+		Game.emit_signal("room_removed", data)
+	
+func create_room(data):
+	rooms_ref.push({
+		"players": {
+			local_player_id: {
+				"isHost": true
+			}
+		}
+	})
+
+
