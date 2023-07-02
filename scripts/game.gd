@@ -57,6 +57,7 @@ func _ready() -> void:
 	self.connect("login_successed", _on_login_successed)
 	self.connect("player_added_to_list", _on_player_added_to_list)
 	self.players_online_changed.connect(_on_players_online_changed)
+	self.rooms_changed.connect(_on_rooms_changed)
 	# self.player_online_removed.connect(_on_player_removed)
 	
 	refresh_player_timer.timeout.connect(_refresh_player_timeout)
@@ -105,18 +106,7 @@ func generate_random_nick() -> String:
 	var id = randi_range(1000, 9999)
 	return "Player#"+str(id)
 
-func _spawn_player(p_info : Dictionary):
-	var x = randf_range(-400, 400)
-	var y = randf_range(-100, 100)
-	var player = player_scene.instantiate()
-	gameplay_node.add_child(player)
-	player.position = Vector2(x, y)
-	player.set_is_me(p_info.is_me)
-	player.set_nickname(p_info.nickname)
-	player.set_id(p_info.id)
-
 func _on_players_online_changed(data):
-	
 	online_players[data.key] = data.data
 	
 	var user_exists = false
@@ -143,3 +133,35 @@ func _on_find_game_pressed():
 
 func _on_create_room_pressed():
 	firebase_manager.create_room({})
+
+func _on_rooms_changed(data):
+	var room_exists = false
+	for child in rooms_list_node.get_children():
+		if "_room_id" in child:
+			if child._room_id == data.key:
+				room_exists = true
+				if data.data == null:
+					child.remove()
+				else:
+					child.set_number_of_players(data.data.players.size())
+				
+	if !room_exists:
+		var room_item = room_item_scene.instantiate()
+		rooms_list_node.add_child(room_item)
+		room_item.set_room_id(data.key)
+		room_item.set_number_of_players(data.data.players.size())
+
+
+
+
+func _spawn_player(p_info : Dictionary):
+	var x = randf_range(-400, 400)
+	var y = randf_range(-100, 100)
+	var player = player_scene.instantiate()
+	gameplay_node.add_child(player)
+	player.position = Vector2(x, y)
+	player.set_is_me(p_info.is_me)
+	player.set_nickname(p_info.nickname)
+	player.set_id(p_info.id)
+
+

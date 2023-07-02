@@ -35,7 +35,7 @@ func delete(path : String, payload) -> void:
 
 ## Returns a deep copy of this data store's payload.
 func get_data() -> Dictionary:
-	return _data[_ROOT].duplicate(true)
+	return _data [_ROOT].duplicate(true)
 
 #
 # Updates this data store by either putting or patching the provided payload into it at the given

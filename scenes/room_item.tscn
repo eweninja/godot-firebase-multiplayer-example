@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqhisfm0nbvad"]
+
+[ext_resource type="Script" path="res://scripts/room_item.gd" id="1_evnvc"]
+[ext_resource type="Theme" uid="uid://ylgo7o4n4kj4" path="res://new_theme.tres" id="2_qygyj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sur1u"]
+bg_color = Color(0.192157, 0.192157, 0.192157, 1)
+
+[node name="RoomItem" type="MarginContainer"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+script = ExtResource("1_evnvc")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="RoomId" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_qygyj")
+theme_override_colors/font_color = Color(0.686275, 0.686275, 0.686275, 1)
+theme_override_font_sizes/font_size = 20
+text = "ROOM ID"
+
+[node name="NumberOfPlayers" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_qygyj")
+theme_override_font_sizes/font_size = 20
+text = "3/4"
+
+[node name="Join" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_qygyj")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_sur1u")
+text = "Join"

@@ -9,6 +9,7 @@ var sessions_ref = null
 
 var local_player_id = ""
 var local_player_room_id = ""
+var rooms_cache = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -76,15 +77,21 @@ func update_player(id, data = {}):
 	players_ref.update(id, data)
 
 func players_cleanup(data):
+	var to_remove = false
 	if !data.data: return
 	if !"updated_time" in data.data:
-		print("usuwanie przez brak")
-		players_ref.delete(str(data.key))
+		to_remove = true
 	else:
 		if Time.get_unix_time_from_system() - data.data.updated_time > 120:
-			players_ref.delete(str(data.key))
+			to_remove = true
+			
+	if to_remove:
+		players_ref.delete(str(data.key))
+		remove_player_from_room(data.key, false)
+		
 
 func _rooms_updated(data):
+	if !data.key in rooms_cache: rooms_cache.push(data.key)
 	print("room data changed")
 	print(data)
 	if local_player_room_id == "":
@@ -121,3 +128,10 @@ func create_room(data):
 	})
 
 
+func remove_player_from_room(player_id, room_id):
+	if !player_id: return
+	if room_id:
+		rooms_ref.delete(room_id + "/players/" + player_id)
+	else:
+		for _room_id in rooms_cache:
+			rooms_ref.delete(_room_id + "/players/" + player_id)
