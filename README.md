@@ -38,6 +38,27 @@ Firebase Realtime Database shared multiplayer with authority for own player.
 	- Showing results.
 	- Going back to lobby.
 
+## Database workflow
+
+**How are players added to db?**
+Players are added after loggining in. Every player is updating themself every 120 s.
+
+**How are players removed from db?**
+Player `updated_time` property is compared with actual time. If diff is more than 120 s - player is removed.
+
+**How are rooms added to db?**
+Rooms are added then logged in player perform `Create Room` action. Room has property `marked_to_remove = false`.
+
+**How are rooms removed from db?**
+Rooms are first marked as `marked_to_remove = true` and then removed. They are makred then players number is 0 (`roomId.players == {}`).
+
+**How are sessions added to db?**
+-
+
+**How are sessions removed from db?**
+
+To include everything in one project, every game instance are making cleanups for `players`, `rooms` and `sessions`.
+
 
 ## Todo
 
@@ -64,7 +85,7 @@ Firebase Realtime Database shared multiplayer with authority for own player.
   },
   "rooms": {
 	"$roomId": {
-	  "name": "Room 1",
+	  "marked_to_remove": false,
 	  "players": {
 		"$playerId": {
 		  "isHost": true

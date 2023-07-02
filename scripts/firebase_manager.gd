@@ -120,13 +120,20 @@ func _room_removed(data):
 	pass # todo
 	
 func rooms_cleanup(data):
-	if data.data.players == {}:
+	if data.data.players == {} or data.data.marked_to_delete:
 		print("room removed by cleanup "+str(data.key))
 		rooms_ref.delete(str(data.key))
 		Game.emit_signal("room_removed", data)
+	else: 
+		for player in data.data.players:
+			if !player in players_cache:
+				if "marked_to_delete" in data.data:
+					if data.data.marked_to_delete:
+						rooms_ref.delete(str(data.key) + "/players/" +str(player))
 	
 func create_room(data):
 	rooms_ref.push({
+		"marked_to_delete": false,
 		"players": {
 			local_player_id: {
 				"isHost": true
@@ -134,12 +141,12 @@ func create_room(data):
 		}
 	})
 
-
 func remove_player_from_room(player_id, room_id):
 	if !player_id: return
 	if room_id:
 		rooms_ref.delete(room_id + "/players/" + player_id)
 	else:
+		print("removing players from room")
 		for _room_id in rooms_cache:
 			rooms_ref.delete(_room_id + "/players/" + player_id)
 			
