@@ -48,6 +48,8 @@ Firebase Realtime Database shared multiplayer with authority for own player.
 - [ ] Matchmaking.
 - [ ] Simple "gameplay".
 - [ ] Game end.
+- [ ] Change naming to more reasonable, like room vs lobbby.
+- [ ] Refactor code.
 
 
 ## Database structure
