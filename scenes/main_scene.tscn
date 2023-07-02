@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bawrp4gm813ht"]
+[gd_scene load_steps=4 format=3 uid="uid://bawrp4gm813ht"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_rqo7u"]
 [ext_resource type="Script" path="res://scripts/firebase_manager.gd" id="1_vv4rk"]
 [ext_resource type="Theme" uid="uid://ylgo7o4n4kj4" path="res://new_theme.tres" id="3_ci23k"]
-[ext_resource type="PackedScene" uid="uid://bqhisfm0nbvad" path="res://scenes/room_item.tscn" id="4_rsr33"]
 
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_rqo7u")
@@ -100,11 +99,8 @@ layout_mode = 2
 [node name="Lobbies" type="Label" parent="CanvasLayer/UI/MarginContainer/LobbyAndPlayersList/Lobbies"]
 layout_mode = 2
 theme = ExtResource("3_ci23k")
-text = "Lobbies:"
+text = "Rooms:"
 horizontal_alignment = 1
-
-[node name="RoomItem" parent="CanvasLayer/UI/MarginContainer/LobbyAndPlayersList/Lobbies" instance=ExtResource("4_rsr33")]
-layout_mode = 2
 
 [node name="PlayersList" type="VBoxContainer" parent="CanvasLayer/UI/MarginContainer/LobbyAndPlayersList"]
 layout_mode = 2

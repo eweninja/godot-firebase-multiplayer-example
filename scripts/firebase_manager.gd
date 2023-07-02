@@ -57,7 +57,7 @@ func add_new_player_to_list(player_info):
 	players_ref.push(player_info)
 	
 func _players_updated(data):
-	if !data.key in players_cache: players_cache.push(data.key)
+	if !data.key in players_cache: players_cache.push_front(data.key)
 	if !data.data: players_cache.erase(data.key)
 	
 	Game.emit_signal("players_online_changed", data)
@@ -96,7 +96,7 @@ func players_cleanup(data):
 		
 
 func _rooms_updated(data):
-	if !data.key in rooms_cache: rooms_cache.push(data.key)
+	if !data.key in rooms_cache: rooms_cache.push_front(data.key)
 	if !data.data: rooms_cache.erase(data.key)
 	
 	print("room data changed")

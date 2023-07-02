@@ -26,7 +26,7 @@ var player_auth_info
 @onready var player_item_scene = preload("res://scenes/player_item.tscn")
 
 @onready var rooms_list_node = $CanvasLayer/UI/MarginContainer/LobbyAndPlayersList/Lobbies
-@onready var room_item_scene = preload("res://scenes/lobby_item.tscn")
+@onready var room_item_scene = preload("res://scenes/room_item.tscn")
 
 
 
