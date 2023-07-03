@@ -70,7 +70,6 @@ vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="LobbyAndPlayersList" type="HBoxContainer" parent="CanvasLayer/UI/MarginContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
@@ -113,42 +112,6 @@ layout_mode = 2
 theme = ExtResource("3_ci23k")
 text = "Players:"
 horizontal_alignment = 1
-
-[node name="Room" type="HBoxContainer" parent="CanvasLayer/UI/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 50
-alignment = 1
-
-[node name="RoomActions" type="VBoxContainer" parent="CanvasLayer/UI/MarginContainer/Room"]
-layout_mode = 2
-
-[node name="InRoomName" type="Label" parent="CanvasLayer/UI/MarginContainer/Room/RoomActions"]
-layout_mode = 2
-theme = ExtResource("3_ci23k")
-text = "RoomName"
-
-[node name="InRoomNoP" type="Label" parent="CanvasLayer/UI/MarginContainer/Room/RoomActions"]
-layout_mode = 2
-theme = ExtResource("3_ci23k")
-text = "0/4"
-
-[node name="InRoomStart" type="Button" parent="CanvasLayer/UI/MarginContainer/Room/RoomActions"]
-layout_mode = 2
-theme = ExtResource("3_ci23k")
-text = "Start"
-
-[node name="InRoomLeave" type="Button" parent="CanvasLayer/UI/MarginContainer/Room/RoomActions"]
-layout_mode = 2
-theme = ExtResource("3_ci23k")
-text = "Leave"
-
-[node name="InRoomPlayers" type="VBoxContainer" parent="CanvasLayer/UI/MarginContainer/Room"]
-layout_mode = 2
-
-[node name="Players" type="Label" parent="CanvasLayer/UI/MarginContainer/Room/InRoomPlayers"]
-layout_mode = 2
-theme = ExtResource("3_ci23k")
-text = "Players in room:"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

@@ -7,7 +7,7 @@ var player_info = {
 }
 const SPEED = 300.0
 
-@onready var nickname_label : Label = $Nickname
+@onready var nickname_label = $Nickname
 
 func _physics_process(delta):
 	if !is_me(): return
