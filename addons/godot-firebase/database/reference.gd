@@ -190,6 +190,7 @@ func on_push_request_complete(result : int, response_code : int, headers : Packe
 	if response_code == HTTPClient.RESPONSE_OK:
 		push_successful.emit()
 	else:
+		print(response_code)
 		push_failed.emit()
 
 	# handle queued operations

@@ -6,8 +6,13 @@ extends MarginContainer
 @onready var room_name_label : Label = $VBoxContainer/RoomName
 
 var _number_of_players : int = 0
-var _room_id : String = ""
-var _room_name : String = ""
+var _room_id = null
+var _room_name = null
+
+signal join_room(id)
+
+func _ready():
+	join_button.pressed.connect(_join_room_pressed)
 
 func set_room_name(name):
 	_room_name = name
@@ -23,9 +28,15 @@ func set_number_of_players(i):
 		join_button.disabled = false
 
 
+
+
 func set_room_id(id):
 	_room_id = id
 	room_id_label.text = str(id)
 
+
+func _join_room_pressed():
+	if _room_id:
+		emit_signal("join_room", _room_id)
 
 func remove(): queue_free()

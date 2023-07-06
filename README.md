@@ -78,32 +78,21 @@ To include everything in one project, every game instance are making cleanups fo
 
 ```json
 {
-  "players": {
-	"$playerId": {
-	  "nickname": "Player#1000",
-	  "updated_time": 0
-	}
-  },
   "rooms": {
 	"$roomId": {
+	  "room_name": "room-name",
 	  "created_time": 0,
-	  "updated_time": 0
+	  "updated_time": 0,
+	  "is_running": false,
 	  "players": {
 		"$playerId": {
 		  "is_host": true,
-		  "nickname": ""
+		  "nickname": "",
+		  "current_points": 0,
+		  "is_ready": false,
+		  "updated_time": 0
 		}
 	  }
-	}
-  },
-  "sessions": {
-	"$sessionId": {
-	  "roomId": "abc123",
-	  "status": "active",
-	  "startTime": 1656789123456,
-	  "stats": {
-		"$playerId": {}
-	   }
 	}
   }
 }
